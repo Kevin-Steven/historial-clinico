@@ -53,83 +53,13 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
       <link rel="icon" href="../images/heart-beats.png" type="image/png">
 
     </head>
-    <body>
+    <body class="sidebar-enabled">
       <main>
-        <!--NAVBAR (BARRA DE NAVEGACION)-->
-        <div class="navnew">
-            <nav class="navbar navbar-expand-md navbar-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand d-flex align-items-center" href="#">
-                        <img src="../images/heart.png" alt="Bootstrap" width="30" height="24" class="me-2">
-                        <span class="fs-3 fw-bold d-none d-md-inline">Unidad de Salud</span>
-                    </a>
-
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                        <ul class="navbar-nav gap-3">
-                            <li class="nav-item">
-                                <a class="nav-link fw-medium" aria-current="page" href="inicio.php#pacientes">Regresar al inicio</a>
-                            </li>
-                            <li class="nav-item">
-                                <a id="logout-link" class="nav-link fw-medium" href="#">Salir</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-
-        <script>
-        // Selecciona todos los enlaces dentro del navbar
-        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
-        const navbarCollapse = document.querySelector('.navbar-collapse');
-
-        navLinks.forEach(link => {
-          link.addEventListener('click', () => {
-            // Cierra el menú al hacer clic en un enlace
-            const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
-              toggle: false
-            });
-            bsCollapse.hide();
-          });
-        });
-      </script>
-
-        <!-- Modal de Confirmación -->
-        <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="logoutModalLabel">Unidad de Salud</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ¿Está seguro que desea salir?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <a href="logout.php" class="btn btn-primary">Aceptar</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php include 'components/sidebar.php'; ?>
 
         <!-- Cargar Bootstrap y Popper.js -->
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
-        <script>
-            document.getElementById('logout-link').addEventListener('click', function(event) {
-                event.preventDefault();
-                console.log('Logout link clicked');
-                var logoutModal = new bootstrap.Modal(document.getElementById('logoutModal'));
-                console.log('Modal instance created');
-                logoutModal.show();
-            });
-        </script>
 
 
 

@@ -22,81 +22,9 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="icon" href="../images/heart-beats.png" type="image/png">
   </head>
-  <body>
+  <body class="sidebar-enabled">
     <main>
-      <!--NAVBAR (BARRA DE NAVEGACION)-->
-      <div class="navnew z-2">
-          <nav class="navbar navbar-expand-md navbar-light">
-              <div class="container-fluid">
-                  <a class="navbar-brand d-flex align-items-center" href="#">
-                      <img src="../images/heart.png" alt="Bootstrap" class="logo">
-                      <span class="fs-3 fw-bold d-none d-md-inline">Unidad de Salud</span>
-                  </a>
-
-                    <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                  
-                  
-                  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                      <ul class="navbar-nav gap-3">
-                          <li class="nav-item">
-                              <a class="nav-link fw-medium" aria-current="page" href="#inicio">Inicio</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link fw-medium" href="#form">Formulario</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link fw-medium" href="#pacientes">Pacientes</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link fw-medium" href="#reportes">Reportes</a>
-                          </li>
-                          <li class="nav-item">
-                              <a id="logout-link" class="nav-link fw-medium" href="logout.php">Salir</a>
-                          </li>
-                      </ul>
-                  </div>
-
-              </div>
-          </nav>
-      </div>
-
-      <script>
-        // Selecciona todos los enlaces dentro del navbar
-        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
-        const navbarCollapse = document.querySelector('.navbar-collapse');
-
-        navLinks.forEach(link => {
-          link.addEventListener('click', () => {
-            // Cierra el menú al hacer clic en un enlace
-            const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
-              toggle: false
-            });
-            bsCollapse.hide();
-          });
-        });
-      </script>
-
-      <!-- Modal de Confirmación -->
-      <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="logoutModalLabel">Unidad de Salud</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              ¿Está seguro que desea salir?
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-              <a href="logout.php" class="btn btn-primary">Aceptar</a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <?php include 'components/sidebar.php'; ?>
       
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0sG1M5b4hcpxyD9F7jL+3lMAgDAw1Eq2OXk8xBz0B5h1a64x" crossorigin="anonymous"></script>
       <script>
