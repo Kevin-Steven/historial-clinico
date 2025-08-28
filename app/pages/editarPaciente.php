@@ -49,13 +49,13 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Editar Paciente</title>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-      <link rel="stylesheet" href="../css/estilos.css">
-      <link rel="icon" href="../images/heart-beats.png" type="image/png">
+      <link rel="stylesheet" href="../../css/estilos.css">
+      <link rel="icon" href="../../images/heart-beats.png" type="image/png">
 
     </head>
     <body class="sidebar-enabled">
       <main>
-        <?php include 'components/sidebar.php'; ?>
+        <?php include '../components/sidebar.php'; ?>
 
         <!-- Cargar Bootstrap y Popper.js -->
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" crossorigin="anonymous"></script>
@@ -64,7 +64,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
 
         <section class="formulario" id="form">
-        <form action="actualizarDatos.php" method="post" class="formtop">
+        <form action="../logic/actualizarDatos.php" method="post" class="formtop">
           <h2 class="display-4 fw-bold pb-2">Editar Formulario</h2>
           <!-- TABLA 3 -->
           <h3 class="fw-bold">1. Datos Afiliación</h3>
@@ -735,20 +735,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         <!--SECTION FORMULARIO/-->
     </main>
 
-    <!--FOOTER-->
-    <footer class="text-white py-3">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-md-6 text-center text-md-start mb-2 mb-md-0">
-                    &copy; 2024 INSTITUTO SUPERIOR TECNOLÓGICO JUAN BAUTISTA AGUIRRE.
-                </div>
-                <div class="col-12 col-md-6 text-center text-md-end">
-                    Soporte: <a href="mailto:kbarzolav.istjba@gmail.com" class="text-white text-decoration-none">kbarzolav.istjba@gmail.com</a>
-                </div>
-            </div>
-        </div>
-        </footer>
-    <!--FOOTER/-->
+    <?php include 'components/footer.php'; ?>
         </body>
         </html>
         <?php

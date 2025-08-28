@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "../config.php";
+require "../config/config.php";
 
 $error_message = "";
 
@@ -17,15 +17,15 @@ if (isset($_SESSION["error_message"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Iniciar Sesión</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/estilos.css">
-    <link rel="icon" href="../images/heart-beats.png" type="image/png">
+    <link rel="stylesheet" href="../../css/estilos.css">
+    <link rel="icon" href="../../images/heart-beats.png" type="image/png">
   </head>
   <body>
       <div class="container d-flex justify-content-center align-items-center" style=" height: 85vh;">
         <div class="row">
-          <form action="procesarLogin.php" class="p-5 lo" method="post" style="max-width: 450px; border: 2px solid #ccc; border-radius: 7px;">
+          <form action="../logic/procesarLogin.php" class="p-5 lo" method="post" style="max-width: 450px; border: 2px solid #ccc; border-radius: 7px;">
           <div class="login">
-            <img src="../images/Unidad-de-Salud-logo.png" alt="">
+            <img src="../../images/Unidad-de-Salud-logo.png" alt="">
 
           </div>
           

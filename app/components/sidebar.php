@@ -1,42 +1,121 @@
-<!-- Sidebar -->
-<div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-        <img src="../images/heart.png" alt="Logo" class="sidebar-logo">
-        <h5 class="sidebar-title">Unidad de Salud</h5>
-        <button class="sidebar-close" id="sidebarClose">&times;</button>
+<!-- Ultra Modern Sidebar -->
+<div class="ultra-modern-sidebar" id="sidebar">
+    <!-- Sidebar Background Effects -->
+    <div class="sidebar-bg-effects">
+        <div class="bg-gradient"></div>
+        <div class="floating-particles">
+            <div class="particle" style="--delay: 0s; --duration: 8s;"></div>
+            <div class="particle" style="--delay: 2s; --duration: 10s;"></div>
+            <div class="particle" style="--delay: 4s; --duration: 12s;"></div>
+            <div class="particle" style="--delay: 6s; --duration: 14s;"></div>
+        </div>
     </div>
     
-    <nav class="sidebar-nav">
-        <a href="inicio.php#inicio" class="sidebar-link">
-            <i class='bx bx-home'></i>
-            <span>Inicio</span>
-        </a>
-        <a href="inicio.php#form" class="sidebar-link">
-            <i class='bx bx-file-blank'></i>
-            <span>Formulario</span>
-        </a>
-        <a href="inicio.php#pacientes" class="sidebar-link">
-            <i class='bx bx-group'></i>
-            <span>Pacientes</span>
-        </a>
-        <a href="inicio.php#reportes" class="sidebar-link">
-            <i class='bx bx-bar-chart-alt-2'></i>
-            <span>Reportes</span>
-        </a>
-        <a href="#" class="sidebar-link" id="logout-sidebar">
-            <i class='bx bx-log-out'></i>
-            <span>Salir</span>
-        </a>
+    <!-- Sidebar Header -->
+    <div class="modern-sidebar-header">
+        <div class="header-content">
+            <div class="logo-container">
+                <div class="logo-glow-effect">
+                    <img src="../../images/heart.png" alt="Logo" class="modern-sidebar-logo">
+                </div>
+                <div class="brand-info">
+                    <h4 class="brand-name">Unidad de Salud</h4>
+                    <p class="brand-tagline">Sistema Médico</p>
+                </div>
+            </div>
+            <button class="modern-close-btn" id="sidebarClose">
+                <i class='bx bx-x'></i>
+            </button>
+        </div>
+        <div class="header-divider"></div>
+    </div>
+    
+    <!-- Navigation Menu -->
+    <nav class="modern-sidebar-nav">
+        <div class="nav-section">
+            <h6 class="nav-section-title">Navegación Principal</h6>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="inicio.php#inicio" class="modern-nav-link active">
+                        <div class="link-icon">
+                            <i class='bx bx-home'></i>
+                        </div>
+                        <span class="link-text">Inicio</span>
+                        <div class="link-indicator"></div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../pages/formIngresoPaciente.php" class="modern-nav-link">
+                        <div class="link-icon">
+                            <i class='bx bx-file-blank'></i>
+                        </div>
+                        <span class="link-text">Formulario</span>
+                        <div class="link-indicator"></div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../pages/tablaPacientes.php" class="modern-nav-link">
+                        <div class="link-icon">
+                            <i class='bx bx-group'></i>
+                        </div>
+                        <span class="link-text">Pacientes</span>
+                        <div class="link-indicator"></div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../pages/reportes.php" class="modern-nav-link">
+                        <div class="link-icon">
+                            <i class='bx bx-bar-chart-alt-2'></i>
+                        </div>
+                        <span class="link-text">Reportes</span>
+                        <div class="link-indicator"></div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="nav-section">
+            <h6 class="nav-section-title">Sistema</h6>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="modern-nav-link logout-link" id="logout-sidebar">
+                        <div class="link-icon">
+                            <i class='bx bx-log-out'></i>
+                        </div>
+                        <span class="link-text">Cerrar Sesión</span>
+                        <div class="link-indicator"></div>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </nav>
+    
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+        <div class="user-info">
+            <div class="user-avatar">
+                <i class='bx bx-user'></i>
+            </div>
+            <div class="user-details">
+                <p class="user-name">Sistema Médico</p>
+                <p class="user-status">En línea</p>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- Sidebar Toggle Button -->
-<button class="sidebar-toggle" id="sidebarToggle">
-    <i class='bx bx-menu'></i>
+<!-- Modern Toggle Button -->
+<button class="ultra-modern-toggle" id="sidebarToggle">
+    <div class="toggle-icon">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+    </div>
+    <div class="toggle-ripple"></div>
 </button>
 
-<!-- Sidebar Overlay -->
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<!-- Enhanced Overlay -->
+<div class="modern-sidebar-overlay" id="sidebarOverlay"></div>
 
 <!-- Modal de Confirmación -->
 <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">

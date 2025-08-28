@@ -1,5 +1,5 @@
 <?php
-require "../config.php";
+require "../config/config.php";
 
 if(isset($_GET['id']) && !empty($_GET['id'])) {
     $id_paciente = $_GET['id'];
@@ -9,7 +9,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])) {
         $stmt->bind_param("i", $id_paciente);
 
         if($stmt->execute()) {
-            header("Location: inicio.php#pacientes");
+            header("Location: ../pages/tablaPacientes.php");
             exit();
         } else {
             echo "Error al intentar actualizar el estado del paciente.";
