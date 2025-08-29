@@ -99,7 +99,7 @@ if (isset($_SESSION['id_usuario'])) {
                             </a>
                           </td>";
                                 // enlace para generar PDF
-                                echo "<td class='text-center'><a href='../logic/generar_informe.php?id=" . $row["id_datos_afiliado"] . "' target='_blank' class='text-danger'><i class='bx bxs-file-pdf'></i></a></td>";
+                                echo "<td class='text-center'><a href='../logic/pdf/generar_informe.php?id=" . $row["id_datos_afiliado"] . "' target='_blank' class='text-danger'><i class='bx bxs-file-pdf'></i></a></td>";
                                 echo "</tr>";
                             }
                         } else {
@@ -117,42 +117,45 @@ if (isset($_SESSION['id_usuario'])) {
 
 
 
-        <!-- Modern Delete Modal -->
-        <div class="modal fade" id="eliminarPacienteModal" tabindex="-1" aria-labelledby="eliminarPacienteModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content border-0 shadow-lg">
-                    <div class="modal-header border-0 pb-0">
-                        <div class="d-flex align-items-center">
-                            <div class="me-3">
-                                <div class="rounded-circle bg-danger bg-opacity-10 p-3">
-                                    <i class='bx bx-trash text-danger' style="font-size: 1.5rem;"></i>
+        <!-- Ultra Modern Delete Modal -->
+        <div class="modal fade" id="eliminarPacienteModal" tabindex="-1" aria-labelledby="eliminarPacienteModalLabel" aria-hidden="true" data-bs-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content modern-delete-modal border-0 shadow-lg">
+                    <!-- Animated Header with Gradient -->
+                    <div class="modal-header border-0 pb-3 position-relative overflow-hidden">
+                        <div class="modal-bg-pattern"></div>
+                        <div class="w-100 text-center position-relative">
+                            <div class="delete-icon-container mx-auto mb-3">
+                                <div class="delete-icon-wrapper">
+                                    <i class='bx bx-trash delete-icon'></i>
                                 </div>
+                                <div class="icon-pulse-ring"></div>
+                                <div class="icon-pulse-ring-2"></div>
                             </div>
-                            <div>
-                                <h5 class="modal-title mb-1" id="eliminarPacienteModalLabel">Eliminar Paciente</h5>
-                                <p class="text-muted small mb-0">Esta acción no se puede deshacer</p>
-                            </div>
+                            <h4 class="modal-title fw-bold text-dark mb-1" id="eliminarPacienteModalLabel">
+                                ¿Eliminar Paciente?
+                            </h4>
+                            <p class="text-muted small mb-0 opacity-75">Esta acción es permanente e irreversible</p>
                         </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close position-absolute top-0 end-0 m-3 opacity-50" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body pt-2">
-                        <div class="alert alert-warning border-0 bg-warning bg-opacity-10">
-                            <div class="d-flex align-items-center">
-                                <i class='bx bx-error-circle text-warning me-2'></i>
-                                <div>
-                                    <strong>¿Estás seguro?</strong>
-                                    <p class="mb-0 small">Se eliminará permanentemente toda la información del paciente del sistema.</p>
-                                </div>
-                            </div>
+                    
+                    <!-- Modern Footer -->
+                    <div class="modal-footer border-0 pt-4 px-4 pb-4">
+                        <div class="d-flex justify-content-center gap-3">
+                            <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill" data-bs-dismiss="modal">
+                                Cancelar
+                            </button>
+                            <button type="button" id="eliminarPacienteButton" class="btn btn-danger btn-sm rounded-pill">
+                                <span class="btn-text">
+                                    Eliminar
+                                </span>
+                                <span class="btn-loading d-none">
+                                    <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+                                    Eliminando...
+                                </span>
+                            </button>
                         </div>
-                    </div>
-                    <div class="modal-footer border-0 pt-0">
-                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">
-                            <i class='bx bx-x me-1'></i> Cancelar
-                        </button>
-                        <a id="eliminarPacienteButton" href="#" class="btn btn-danger rounded-pill px-4">
-                            <i class='bx bx-trash me-1'></i> Eliminar
-                        </a>
                     </div>
                 </div>
             </div>
@@ -160,11 +163,49 @@ if (isset($_SESSION['id_usuario'])) {
 
         <script>
             var eliminarPacienteModal = document.getElementById('eliminarPacienteModal');
+            var eliminarPacienteButton = document.getElementById('eliminarPacienteButton');
+            var currentPatientId = null;
+
+            // Handle modal show event
             eliminarPacienteModal.addEventListener('show.bs.modal', function(event) {
                 var button = event.relatedTarget;
-                var pacienteId = button.getAttribute('data-id');
-                var eliminarPacienteButton = document.getElementById('eliminarPacienteButton');
-                eliminarPacienteButton.setAttribute('href', '../logic/eliminarPaciente.php?id=' + pacienteId);
+                currentPatientId = button.getAttribute('data-id');
+                
+                // Reset button state
+                var btnText = eliminarPacienteButton.querySelector('.btn-text');
+                var btnLoading = eliminarPacienteButton.querySelector('.btn-loading');
+                btnText.classList.remove('d-none');
+                btnLoading.classList.add('d-none');
+                eliminarPacienteButton.disabled = false;
+            });
+
+            // Handle delete button click
+            eliminarPacienteButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (currentPatientId) {
+                    // Show loading state
+                    var btnText = this.querySelector('.btn-text');
+                    var btnLoading = this.querySelector('.btn-loading');
+                    
+                    btnText.classList.add('d-none');
+                    btnLoading.classList.remove('d-none');
+                    this.disabled = true;
+                    
+                    // Add slight delay for better UX
+                    setTimeout(function() {
+                        window.location.href = '../logic/eliminarPaciente.php?id=' + currentPatientId;
+                    }, 800);
+                }
+            });
+
+            // Add modal animation enhancement
+            eliminarPacienteModal.addEventListener('shown.bs.modal', function() {
+                this.querySelector('.delete-icon-container').classList.add('animate-in');
+            });
+
+            eliminarPacienteModal.addEventListener('hidden.bs.modal', function() {
+                this.querySelector('.delete-icon-container').classList.remove('animate-in');
             });
         </script>
         <!--/SECTION PACIENTES-->

@@ -302,23 +302,45 @@ if (isset($_SESSION['id_usuario'])) {
         <div class="row">
           <div class="col-12">
             <div class="card dashboard-card border-0 shadow-sm">
-              <div class="card-header bg-transparent border-0 pb-0 d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">
-                  <i class='bx bx-time-five me-2'></i>
-                  Pacientes Recientes
-                </h5>
-                <a href="tablaPacientes.php" class="btn btn-outline-secondary btn-sm rounded-pill" data-bs-toggle="tooltip" title="Ver todos los pacientes">Ver todos</a>
+              <div class="card-header bg-transparent border-0 pb-2">
+                <div class="d-flex align-items-center justify-content-between">
+                  <h5 class="card-title mb-0">
+                    <i class='bx bx-time-five me-2 text-primary'></i>
+                    Pacientes Recientes
+                  </h5>
+                  <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-primary-subtle text-primary badge-soft">
+                      <i class='bx bx-user me-1'></i>
+                      Últimos 5
+                    </span>
+                    <a href="tablaPacientes.php" class="btn btn-outline-secondary btn-sm rounded-pill" data-bs-toggle="tooltip" title="Ver todos los pacientes">
+                      <i class='bx bx-list-ul me-1'></i>Ver todos
+                    </a>
+                  </div>
+                </div>
+                <p class="text-muted mb-0 mt-2 small">Pacientes registrados recientemente en el sistema</p>
               </div>
-              <div class="card-body">
+              <div class="card-body pt-3">
                 <div class="table-responsive">
-                  <table class="table table-hover">
-                    <thead class="table-light">
+                  <table class="table table-hover modern-table">
+                    <thead>
                       <tr>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Cédula</th>
-                        <th>Fecha Registro</th>
-                        <th>Acciones</th>
+                        <th class="border-0 bg-light-subtle">
+                          <i class='bx bx-user me-1 text-muted'></i>
+                          Paciente
+                        </th>
+                        <th class="border-0 bg-light-subtle">
+                          <i class='bx bx-id-card me-1 text-muted'></i>
+                          Cédula
+                        </th>
+                        <th class="border-0 bg-light-subtle">
+                          <i class='bx bx-calendar me-1 text-muted'></i>
+                          Fecha Registro
+                        </th>
+                        <th class="border-0 bg-light-subtle">
+                          <i class='bx bx-time me-1 text-muted'></i>
+                          Estado
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -332,23 +354,77 @@ if (isset($_SESSION['id_usuario'])) {
                       
                       if ($result_recientes->num_rows > 0) {
                           while($row = $result_recientes->fetch_assoc()) {
-                              echo "<tr>";
-                              echo "<td>" . htmlspecialchars($row["nombres"]) . "</td>";
-                              echo "<td>" . htmlspecialchars($row["apellidos"]) . "</td>";
-                              echo "<td>" . htmlspecialchars($row["cedula"]) . "</td>";
-                              echo "<td>" . date('d/m/Y', strtotime($row["fecha"])) . "</td>";
+                              // Generate initials for avatar
+                              $initials = strtoupper(substr($row["nombres"], 0, 1) . substr($row["apellidos"], 0, 1));
+                              $full_name = htmlspecialchars($row["nombres"] . " " . $row["apellidos"]);
+                              
+                              // Calculate days since registration
+                              $fecha_registro = new DateTime($row["fecha"]);
+                              $hoy = new DateTime();
+                              $dias_diferencia = $hoy->diff($fecha_registro)->days;
+                              
+                              echo "<tr class='patient-row'>";
+                              
+                              // Patient column with avatar
                               echo "<td>";
-                              echo "<a href='editarPaciente.php?id=" . $row["id_datos_afiliado"] . "' class='btn btn-sm btn-outline-primary me-1' title='Editar paciente'>";
-                              echo "<i class='bx bx-edit'></i>";
-                              echo "</a>";
-                              echo "<a href='../logic/eliminarPaciente.php?id=" . $row["id_datos_afiliado"] . "' class='btn btn-sm btn-outline-danger' title='Eliminar paciente' onclick='return confirm(\"¿Está seguro que desea eliminar este paciente?\")'>";
-                              echo "<i class='bx bx-trash'></i>";
-                              echo "</a>";
+                              echo "<div class='d-flex align-items-center'>";
+                              echo "<div class='patient-avatar me-3'>";
+                              echo "<span class='avatar-initials'>" . $initials . "</span>";
+                              echo "</div>";
+                              echo "<div class='patient-info'>";
+                              echo "<div class='patient-name fw-semibold'>" . $full_name . "</div>";
+                              echo "<div class='patient-id text-muted small'>ID: " . $row["id_datos_afiliado"] . "</div>";
+                              echo "</div>";
+                              echo "</div>";
+                              echo "</td>";
+                              
+                              // Cedula column
+                              echo "<td>";
+                              echo "<span class='cedula-badge'>" . htmlspecialchars($row["cedula"]) . "</span>";
+                              echo "</td>";
+                              
+                              // Date column
+                              echo "<td>";
+                              echo "<div class='date-info'>";
+                              echo "<div class='date-main'>" . date('d/m/Y', strtotime($row["fecha"])) . "</div>";
+                              echo "<div class='date-relative text-muted small'>";
+                              if ($dias_diferencia == 0) {
+                                  echo "Hoy";
+                              } elseif ($dias_diferencia == 1) {
+                                  echo "Ayer";
+                              } else {
+                                  echo "Hace " . $dias_diferencia . " días";
+                              }
+                              echo "</div>";
+                              echo "</div>";
+                              echo "</td>";
+                              
+                              // Status column
+                              echo "<td>";
+                              if ($dias_diferencia <= 7) {
+                                  echo "<span class='badge bg-success-subtle text-success'>";
+                                  echo "<i class='bx bx-check-circle me-1'></i>Nuevo";
+                              } else {
+                                  echo "<span class='badge bg-primary-subtle text-primary'>";
+                                  echo "<i class='bx bx-user-check me-1'></i>Activo";
+                              }
+                              echo "</span>";
                               echo "</td>";
                               echo "</tr>";
                           }
                       } else {
-                          echo "<tr><td colspan='5' class='text-center text-muted'>No hay pacientes registrados</td></tr>";
+                          echo "<tr>";
+                          echo "<td colspan='5' class='text-center py-5'>";
+                          echo "<div class='empty-state'>";
+                          echo "<i class='bx bx-user-plus empty-icon'></i>";
+                          echo "<h6 class='empty-title'>No hay pacientes registrados</h6>";
+                          echo "<p class='empty-description text-muted'>Comienza agregando tu primer paciente al sistema</p>";
+                          echo "<a href='formIngresoPaciente.php' class='btn btn-primary btn-sm rounded-pill'>";
+                          echo "<i class='bx bx-plus me-1'></i>Agregar Paciente";
+                          echo "</a>";
+                          echo "</div>";
+                          echo "</td>";
+                          echo "</tr>";
                       }
                       ?>
                     </tbody>
