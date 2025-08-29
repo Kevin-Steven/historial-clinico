@@ -136,6 +136,9 @@ Historial-Clinico/
 - Lista de pacientes recientes con avatares
 - Indicadores de estado del sistema
 
+- <img width="1919" height="906" alt="image" src="https://github.com/user-attachments/assets/fd9e6fe0-5aa3-4fa9-b6af-cf484301bfbb" />
+
+
 ### Gestión de Pacientes (tablaPacientes.php)
 - Tabla responsive con todos los pacientes
 - Acciones de editar, eliminar y generar PDF
