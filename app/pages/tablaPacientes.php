@@ -47,7 +47,7 @@ if (isset($_SESSION['id_usuario'])) {
                             <p class="dashboard-subtitle">Administra y consulta la información de todos los pacientes registrados</p>
                             <div class="d-flex justify-content-center justify-content-md-end gap-2 mt-2">
                                 <span class="badge bg-primary-subtle text-primary badge-soft">
-                                    <i class='bx bx-time-five me-1'></i> 
+                                    <i class='bx bx-time-five me-1'></i>
                                     <?php echo date('d/m/Y'); ?>
                                 </span>
                                 <a href="formIngresoPaciente.php" class="btn btn-outline-primary btn-sm rounded-pill">
@@ -71,48 +71,48 @@ if (isset($_SESSION['id_usuario'])) {
                             <div class="card-body">
                                 <div class="table-responsive table-container">
                                     <table class="table table-striped">
-                    <thead class="table">
-                        <tr>
-                            <th scope="col">Nombres</th>
-                            <th scope="col">Apellidos</th>
-                            <th scope="col" class="text-center">Editar</th>
-                            <th scope="col" class="text-center">Eliminar</th>
-                            <th scope="col" class="text-center">Generar PDF</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $sql = "SELECT id_datos_afiliado, nombres, apellidos FROM datos_afiliado WHERE estado = 1";
-                        $result = $conn->query($sql);
+                                        <thead class="table">
+                                            <tr>
+                                                <th scope="col">Nombres</th>
+                                                <th scope="col">Apellidos</th>
+                                                <th scope="col" class="text-center">Editar</th>
+                                                <th scope="col" class="text-center">Eliminar</th>
+                                                <th scope="col" class="text-center">Generar PDF</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $sql = "SELECT id_datos_afiliado, nombres, apellidos FROM datos_afiliado WHERE estado = 1";
+                                            $result = $conn->query($sql);
 
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tr>";
-                                echo "<td>" . $row["nombres"] . "</td>";
-                                echo "<td>" . $row["apellidos"] . "</td>";
-                                // enlace para editar
-                                echo "<td class='text-center'><a href='editarPaciente.php?id=" . $row["id_datos_afiliado"] . "' class='text-primary'><i class='bx bx-edit'></i></a></td>";
-                                // enlace para eliminar
-                                echo "<td class='text-center'>
+                                            if ($result->num_rows > 0) {
+                                                while ($row = $result->fetch_assoc()) {
+                                                    echo "<tr>";
+                                                    echo "<td>" . $row["nombres"] . "</td>";
+                                                    echo "<td>" . $row["apellidos"] . "</td>";
+                                                    // enlace para editar
+                                                    echo "<td class='text-center'><a href='editarPaciente.php?id=" . $row["id_datos_afiliado"] . "' class='text-primary'><i class='bx bx-edit'></i></a></td>";
+                                                    // enlace para eliminar
+                                                    echo "<td class='text-center'>
                             <a href='#' class='text-danger' data-bs-toggle='modal' data-bs-target='#eliminarPacienteModal' data-id='" . $row["id_datos_afiliado"] . "'>
                                 <i class='bx bx-trash'></i>
                             </a>
                           </td>";
-                                // enlace para generar PDF
-                                echo "<td class='text-center'><a href='../logic/pdf/generar_informe.php?id=" . $row["id_datos_afiliado"] . "' target='_blank' class='text-danger'><i class='bx bxs-file-pdf'></i></a></td>";
-                                echo "</tr>";
-                            }
-                        } else {
-                            echo "<tr><td colspan='5' class='text-center'>No hay pacientes registrados</td></tr>";
-                        }
-                        ?>
-                                    </tbody>
-                                </table>
+                                                    // enlace para generar PDF
+                                                    echo "<td class='text-center'><a href='../logic/pdf/generar_informe.php?id=" . $row["id_datos_afiliado"] . "' target='_blank' class='text-danger'><i class='bx bxs-file-pdf'></i></a></td>";
+                                                    echo "</tr>";
+                                                }
+                                            } else {
+                                                echo "<tr><td colspan='5' class='text-center'>No hay pacientes registrados</td></tr>";
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </section>
 
 
@@ -139,7 +139,7 @@ if (isset($_SESSION['id_usuario'])) {
                         </div>
                         <button type="button" class="btn-close position-absolute top-0 end-0 m-3 opacity-50" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    
+
                     <!-- Modern Footer -->
                     <div class="modal-footer border-0 pt-4 px-4 pb-4">
                         <div class="d-flex justify-content-center gap-3">
@@ -170,7 +170,7 @@ if (isset($_SESSION['id_usuario'])) {
             eliminarPacienteModal.addEventListener('show.bs.modal', function(event) {
                 var button = event.relatedTarget;
                 currentPatientId = button.getAttribute('data-id');
-                
+
                 // Reset button state
                 var btnText = eliminarPacienteButton.querySelector('.btn-text');
                 var btnLoading = eliminarPacienteButton.querySelector('.btn-loading');
@@ -182,16 +182,16 @@ if (isset($_SESSION['id_usuario'])) {
             // Handle delete button click
             eliminarPacienteButton.addEventListener('click', function(e) {
                 e.preventDefault();
-                
+
                 if (currentPatientId) {
                     // Show loading state
                     var btnText = this.querySelector('.btn-text');
                     var btnLoading = this.querySelector('.btn-loading');
-                    
+
                     btnText.classList.add('d-none');
                     btnLoading.classList.remove('d-none');
                     this.disabled = true;
-                    
+
                     // Add slight delay for better UX
                     setTimeout(function() {
                         window.location.href = '../logic/eliminarPaciente.php?id=' + currentPatientId;
