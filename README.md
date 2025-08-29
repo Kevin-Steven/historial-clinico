@@ -145,17 +145,26 @@ Historial-Clinico/
 - Modal moderno de confirmación para eliminaciones
 - Búsqueda y filtrado de registros
 
+- ![Imagen de WhatsApp 2025-08-28 a las 19 25 51_19dfc5bc](https://github.com/user-attachments/assets/b197d9d8-2227-4886-830f-977254ee7fa8)
+
+
 ### Formularios (formIngresoPaciente.php, editarPaciente.php)
 - Formularios multi-sección organizados
 - Validación en tiempo real
 - Diseño moderno con iconos y grupos de entrada
 - Guardado automático y confirmaciones
 
+- <img width="1919" height="905" alt="image" src="https://github.com/user-attachments/assets/6c342456-e2d7-4b38-8829-769b1a6629a8" />
+
+
 ### Reportes (reportes.php)
 - Generación de reportes rápidos
 - Filtros por fechas y criterios
 - Exportación a PDF
 - Visualización de estadísticas
+
+- ![Imagen de WhatsApp 2025-08-28 a las 19 26 04_87711c0f](https://github.com/user-attachments/assets/a6a24336-2412-47cf-bc39-1b69212cdeb3)
+
 
 ## 🎨 Características de Diseño
 
