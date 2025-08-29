@@ -1,0 +1,85 @@
+/* Homepage (Inicio) Styles */
+.inicio {
+    padding-inline: 7rem;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.inicio .titulo-inicio {
+    font-size: 4.6rem;
+    text-wrap: balance;
+    line-height: 1.2;
+}
+
+.inicio .subtitulo-inicio {
+    font-size: 2.1rem;
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+.inicio .parrafo-inicio {
+    font-size: 1.2rem;
+    margin: 1.5rem 0;
+}
+
+.inicio .text {
+    align-items: center;
+}
+
+.inicio img {
+    width: 100%;
+}
+
+.inicio .card-body {
+    width: 90%;
+}
+
+.newcolor {
+    background: transparent;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .inicio {
+        padding-inline: 1rem;
+        height: auto;
+    }
+
+    .inicio .titulo-inicio {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+
+    .inicio .subtitulo-inicio {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .inicio .parrafo-inicio {
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .inicio .inicioimg {
+        margin-top: 5rem;
+        width: 50%;
+        height: auto;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .inicio .text {
+        flex-direction: column;
+    }
+
+    .inicio .text img {
+        order: 1;
+    }
+
+    .inicio .card-body {
+        order: 2;
+        width: 100%;
+    }
+}

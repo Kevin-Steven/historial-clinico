@@ -6,7 +6,7 @@ if (isset($_SESSION['id_usuario'])) {
     $id_usuario = $_SESSION['id_usuario'];
 } else {
     // Si el usuario no ha iniciado sesión, redirige a la página de inicio de sesión
-    header("Location: ../login.php");
+    header("Location: login.php");
     exit;
 }
 ?>
@@ -19,7 +19,10 @@ if (isset($_SESSION['id_usuario'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pacientes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../css/base.css">
     <link rel="stylesheet" href="../../css/estilos.css">
+    <link rel="stylesheet" href="../../css/tables.css">
+    <link rel="stylesheet" href="../../css/sidebar.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="icon" href="../../images/heart-beats.png" type="image/png">
 </head>
@@ -29,19 +32,45 @@ if (isset($_SESSION['id_usuario'])) {
         <?php include '../components/sidebar.php'; ?>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0sG1M5b4hcpxyD9F7jL+3lMAgDAw1Eq2OXk8xBz0B5h1a64x" crossorigin="anonymous"></script>
-        <script>
-            document.getElementById('logout-link').addEventListener('click', function(event) {
-                event.preventDefault();
-                var logoutModal = new bootstrap.Modal(document.getElementById('logoutModal'));
-                logoutModal.show();
-            });
-        </script>
 
         <!--SECTION PACIENTES-->
-        <section class="pacientes" id="pacientes">
-            <h2 class="display-4 fw-bold text-center">PACIENTES</h2>
-            <div class="table-responsive table-container">
-                <table class="table table-striped">
+        <section class="dashboard-container" id="pacientes">
+            <div class="container-fluid px-4">
+                <!-- Page Header -->
+                <div class="row mb-1 mt-2">
+                    <div class="col-12">
+                        <div class="dashboard-header text-start">
+                            <h1 class="dashboard-title">
+                                <i class='bx bx-group me-2'></i>
+                                Gestión de Pacientes
+                            </h1>
+                            <p class="dashboard-subtitle">Administra y consulta la información de todos los pacientes registrados</p>
+                            <div class="d-flex justify-content-center justify-content-md-end gap-2 mt-2">
+                                <span class="badge bg-primary-subtle text-primary badge-soft">
+                                    <i class='bx bx-time-five me-1'></i> 
+                                    <?php echo date('d/m/Y'); ?>
+                                </span>
+                                <a href="formIngresoPaciente.php" class="btn btn-outline-primary btn-sm rounded-pill">
+                                    <i class='bx bx-plus me-1'></i> Nuevo Paciente
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Patients Table Card -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="dashboard-card border-0 shadow-sm">
+                            <div class="card-header bg-transparent border-0 pb-0">
+                                <h5 class="card-title mb-0">
+                                    <i class='bx bx-list-ul me-2'></i>
+                                    Lista de Pacientes
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive table-container">
+                                    <table class="table table-striped">
                     <thead class="table">
                         <tr>
                             <th scope="col">Nombres</th>
@@ -77,27 +106,53 @@ if (isset($_SESSION['id_usuario'])) {
                             echo "<tr><td colspan='5' class='text-center'>No hay pacientes registrados</td></tr>";
                         }
                         ?>
-                    </tbody>
-                </table>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
 
 
-        <!-- Modal -->
+        <!-- Modern Delete Modal -->
         <div class="modal fade" id="eliminarPacienteModal" tabindex="-1" aria-labelledby="eliminarPacienteModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="eliminarPacienteModalLabel">Eliminar Paciente</h5>
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 shadow-lg">
+                    <div class="modal-header border-0 pb-0">
+                        <div class="d-flex align-items-center">
+                            <div class="me-3">
+                                <div class="rounded-circle bg-danger bg-opacity-10 p-3">
+                                    <i class='bx bx-trash text-danger' style="font-size: 1.5rem;"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 class="modal-title mb-1" id="eliminarPacienteModalLabel">Eliminar Paciente</h5>
+                                <p class="text-muted small mb-0">Esta acción no se puede deshacer</p>
+                            </div>
+                        </div>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        <p>¿Estás seguro de querer eliminar este paciente?</p>
+                    <div class="modal-body pt-2">
+                        <div class="alert alert-warning border-0 bg-warning bg-opacity-10">
+                            <div class="d-flex align-items-center">
+                                <i class='bx bx-error-circle text-warning me-2'></i>
+                                <div>
+                                    <strong>¿Estás seguro?</strong>
+                                    <p class="mb-0 small">Se eliminará permanentemente toda la información del paciente del sistema.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <a id="eliminarPacienteButton" href="#" class="btn btn-danger">Eliminar</a>
+                    <div class="modal-footer border-0 pt-0">
+                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">
+                            <i class='bx bx-x me-1'></i> Cancelar
+                        </button>
+                        <a id="eliminarPacienteButton" href="#" class="btn btn-danger rounded-pill px-4">
+                            <i class='bx bx-trash me-1'></i> Eliminar
+                        </a>
                     </div>
                 </div>
             </div>

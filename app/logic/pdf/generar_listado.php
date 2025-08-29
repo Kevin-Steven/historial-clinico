@@ -1,18 +1,17 @@
 <?php
-include("../fpdf/fpdf.php");
-require "../config.php";
+include("../../../fpdf/fpdf.php");
+require "../../config/config.php";
 
 class PDF extends FPDF {
 
     function Cell($w, $h = 0, $txt = '', $border = 0, $ln = 0, $align = '', $fill = false, $link = '')
     {
-        $txt = utf8_decode($txt);
         parent::Cell($w, $h, $txt, $border, $ln, $align, $fill, $link);
     }
     function Header() {
         
-        $this->Image('../images/LogoISTJBA.png', 15, 3, 45);
-        $this->Image('../images/Unidad-de-Salud-logo.png', 148, 7, 50);
+        $this->Image('../../../images/LogoISTJBA.png', 15, 3, 45);
+        $this->Image('../../../images/Unidad-de-Salud-logo.png', 148, 7, 50);
     }
 
     function listado($data) {

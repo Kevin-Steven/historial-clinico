@@ -1,0 +1,55 @@
+/* Google Fonts - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Custom Color Palette Variables */
+:root {
+    --primary-blue: #0041f2;
+    --dark-navy: #0a1e33;
+    --accent-green: #bfeb30;
+    --pure-white: #ffffff;
+    
+    /* Gradient variations */
+    --gradient-primary: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-navy) 100%);
+    --gradient-accent: linear-gradient(135deg, var(--accent-green) 0%, #a8d626 100%);
+    --gradient-light: linear-gradient(135deg, var(--pure-white) 0%, #f8f9fa 100%);
+    
+    /* Text colors */
+    --text-primary: var(--dark-navy);
+    --text-secondary: #6c757d;
+    --text-light: var(--pure-white);
+    
+    /* Updated Color Palette */
+    --color-primary: var(--primary-blue);
+    --color-primary-dark: var(--dark-navy);
+    --color-accent: var(--accent-green);
+    --color-accent-dark: #9bc225;
+    --color-success: var(--accent-green);
+    --color-success-dark: #9bc225;
+    --color-info: var(--primary-blue);
+    --color-info-dark: var(--dark-navy);
+}
+
+/* Global Font Family */
+* {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--text-primary);
+}
+
+/* Global Utilities */
+textarea {
+    resize: none;
+}
+
+.pointer-cursor {
+    cursor: pointer;
+}
+
+/* Custom Text Colors */
+.text-primary { color: var(--primary-blue) !important; }
+.text-accent { color: var(--accent-green) !important; }
+.text-navy { color: var(--dark-navy) !important; }
+.text-success { color: var(--accent-green) !important; }

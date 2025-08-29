@@ -1,117 +1,82 @@
 <!-- Ultra Modern Sidebar -->
 <div class="ultra-modern-sidebar" id="sidebar">
-    <!-- Sidebar Background Effects -->
-    <div class="sidebar-bg-effects">
-        <div class="bg-gradient"></div>
-        <div class="floating-particles">
-            <div class="particle" style="--delay: 0s; --duration: 8s;"></div>
-            <div class="particle" style="--delay: 2s; --duration: 10s;"></div>
-            <div class="particle" style="--delay: 4s; --duration: 12s;"></div>
-            <div class="particle" style="--delay: 6s; --duration: 14s;"></div>
-        </div>
-    </div>
-    
     <!-- Sidebar Header -->
-    <div class="modern-sidebar-header">
-        <div class="header-content">
-            <div class="logo-container">
-                <div class="logo-glow-effect">
-                    <img src="../../images/heart.png" alt="Logo" class="modern-sidebar-logo">
-                </div>
-                <div class="brand-info">
-                    <h4 class="brand-name">Unidad de Salud</h4>
-                    <p class="brand-tagline">Sistema Médico</p>
-                </div>
+    <div class="sidebar-header">
+        <a href="../pages/inicio.php" class="sidebar-brand">
+            <div class="brand-icon">
+                <i class='bx bx-heart'></i>
             </div>
-            <button class="modern-close-btn" id="sidebarClose">
-                <i class='bx bx-x'></i>
-            </button>
-        </div>
-        <div class="header-divider"></div>
+            <div class="brand-text">
+                <h5>Historial Clínico</h5>
+                <small>Sistema Médico</small>
+            </div>
+        </a>
     </div>
     
+<?php
+// Obtener el nombre del archivo actual
+$current_page = basename($_SERVER['PHP_SELF']);
+?>
     <!-- Navigation Menu -->
-    <nav class="modern-sidebar-nav">
-        <div class="nav-section">
-            <h6 class="nav-section-title">Navegación Principal</h6>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="inicio.php#inicio" class="modern-nav-link active">
-                        <div class="link-icon">
-                            <i class='bx bx-home'></i>
-                        </div>
-                        <span class="link-text">Inicio</span>
-                        <div class="link-indicator"></div>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="../pages/formIngresoPaciente.php" class="modern-nav-link">
-                        <div class="link-icon">
-                            <i class='bx bx-file-blank'></i>
-                        </div>
-                        <span class="link-text">Formulario</span>
-                        <div class="link-indicator"></div>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="../pages/tablaPacientes.php" class="modern-nav-link">
-                        <div class="link-icon">
-                            <i class='bx bx-group'></i>
-                        </div>
-                        <span class="link-text">Pacientes</span>
-                        <div class="link-indicator"></div>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="../pages/reportes.php" class="modern-nav-link">
-                        <div class="link-icon">
-                            <i class='bx bx-bar-chart-alt-2'></i>
-                        </div>
-                        <span class="link-text">Reportes</span>
-                        <div class="link-indicator"></div>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        
-        <div class="nav-section">
-            <h6 class="nav-section-title">Sistema</h6>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#" class="modern-nav-link logout-link" id="logout-sidebar">
-                        <div class="link-icon">
-                            <i class='bx bx-log-out'></i>
-                        </div>
-                        <span class="link-text">Cerrar Sesión</span>
-                        <div class="link-indicator"></div>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <div class="sidebar-menu-section">
+        <h6 class="menu-section-title">Principal</h6>
+        <ul class="sidebar-menu">
+            <li class="sidebar-menu-item">
+                <a href="../pages/inicio.php" class="sidebar-nav-link <?php echo ($current_page == 'inicio.php') ? 'active' : ''; ?>">
+                    <div class="nav-link-icon"><i class='bx bx-home'></i></div>
+                    <span class="nav-link-text">Inicio</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item">
+                <a href="../pages/formIngresoPaciente.php" class="sidebar-nav-link <?php echo ($current_page == 'formIngresoPaciente.php') ? 'active' : ''; ?>">
+                    <div class="nav-link-icon"><i class='bx bx-user-plus'></i></div>
+                    <span class="nav-link-text">Nuevo Paciente</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item">
+                <a href="../pages/tablaPacientes.php" class="sidebar-nav-link <?php echo ($current_page == 'tablaPacientes.php' || $current_page == 'editarPaciente.php') ? 'active' : ''; ?>">
+                    <div class="nav-link-icon"><i class='bx bx-group'></i></div>
+                    <span class="nav-link-text">Pacientes</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item">
+                <a href="../pages/reportes.php" class="sidebar-nav-link <?php echo ($current_page == 'reportes.php') ? 'active' : ''; ?>">
+                    <div class="nav-link-icon"><i class='bx bx-file-blank'></i></div>
+                    <span class="nav-link-text">Reportes</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="sidebar-menu-section">
+        <h6 class="menu-section-title">Sistema</h6>
+        <ul class="sidebar-menu">
+            <li class="sidebar-menu-item">
+                <a href="#" class="sidebar-nav-link logout-link" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                    <div class="nav-link-icon"><i class='bx bx-log-out'></i></div>
+                    <span class="nav-link-text">Cerrar Sesión</span>
+                </a>
+            </li>
+        </ul>
+    </div>
     
     <!-- Sidebar Footer -->
     <div class="sidebar-footer">
-        <div class="user-info">
+        <div class="sidebar-user-info">
             <div class="user-avatar">
                 <i class='bx bx-user'></i>
             </div>
             <div class="user-details">
-                <p class="user-name">Sistema Médico</p>
-                <p class="user-status">En línea</p>
+                <p class="user-name"><?php echo isset($_SESSION['nombre_usuario']) ? $_SESSION['nombre_usuario'] : 'Usuario'; ?></p>
+                <p class="user-role">Médico</p>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modern Toggle Button -->
+<!-- Toggle Button (Mobile Only) -->
 <button class="ultra-modern-toggle" id="sidebarToggle">
-    <div class="toggle-icon">
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-    </div>
-    <div class="toggle-ripple"></div>
+    <i class='bx bx-menu'></i>
 </button>
 
 <!-- Enhanced Overlay -->
@@ -130,7 +95,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <a href="logout.php" class="btn btn-primary">Aceptar</a>
+                <a href="../logic/logout.php" class="btn btn-primary">Aceptar</a>
             </div>
         </div>
     </div>
@@ -162,11 +127,14 @@ document.addEventListener('DOMContentLoaded', function() {
     sidebarOverlay.addEventListener('click', closeSidebar);
 
     // Close sidebar when clicking on links
-    document.querySelectorAll('.sidebar-link:not(#logout-sidebar)').forEach(link => {
-        link.addEventListener('click', closeSidebar);
+    document.querySelectorAll('.sidebar-nav-link').forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                closeSidebar();
+            }
+        });
     });
 
-    // Logout modal
     logoutLink.addEventListener('click', function(e) {
         e.preventDefault();
         var logoutModal = new bootstrap.Modal(document.getElementById('logoutModal'));

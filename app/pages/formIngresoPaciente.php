@@ -6,7 +6,7 @@ if (isset($_SESSION['id_usuario'])) {
     $id_usuario = $_SESSION['id_usuario'];
 } else {
     // Si el usuario no ha iniciado sesión, redirige a la página de inicio de sesión
-    header("Location: ../login.php");
+    header("Location: login.php");
     exit;
 }
 ?>
@@ -19,7 +19,10 @@ if (isset($_SESSION['id_usuario'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agregar Historial</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../css/base.css">
     <link rel="stylesheet" href="../../css/estilos.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="../../css/sidebar.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="icon" href="../../images/heart-beats.png" type="image/png">
 </head>
@@ -29,238 +32,410 @@ if (isset($_SESSION['id_usuario'])) {
         <?php include '../components/sidebar.php'; ?>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0sG1M5b4hcpxyD9F7jL+3lMAgDAw1Eq2OXk8xBz0B5h1a64x" crossorigin="anonymous"></script>
-        <script>
-            document.getElementById('logout-link').addEventListener('click', function(event) {
-                event.preventDefault();
-                var logoutModal = new bootstrap.Modal(document.getElementById('logoutModal'));
-                logoutModal.show();
-            });
-        </script>
-
 
         <!--SECTION FORMULARIO-->
-        <section class="formulario" id="form">
-            <form action="../logic/procesarFormulario.php" method="post" class="formtop">
-                <h2 class="display-4 fw-bold pb-2">HISTORIA CLINICA</h2>
-                <!-- TABLA 3 -->
-                <h3 class="fw-bold">1. Datos Afiliación</h3>
-
-                <div class="row">
-                    <div class="mb-3 col-12 col-md-6 col-lg-3">
-                        <label for="apellidos" class="form-label">Apellidos</label>
-                        <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Alvarado Villafuerte" required>
-                    </div>
-
-                    <div class="mb-3 col-12 col-md-6 col-lg-3">
-                        <label for="nombres" class="form-label">Nombres</label>
-                        <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Carlos Luis" required>
-                    </div>
-
-                    <div class="mb-3 col-12 col-md-6 col-lg-3">
-                        <label for="cedula" class="form-label">Número de Cedula</label>
-                        <input type="number" class="form-control" id="cedula" name="cedula" placeholder="0999999999" required>
-                    </div>
-
-                    <div class="mb-3 col-12 col-md-6 col-lg-3">
-                        <label for="direccion" class="form-label">Dirección</label>
-                        <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Av. Alvorada" required>
-                    </div>
-
-                    <div class="mb-3 col-12 col-md-6 col-lg-3">
-                        <label for="barrio" class="form-label">Barrio</label>
-                        <input type="text" class="form-control" id="barrio" name="barrio" placeholder="Marianita" required>
-                    </div>
-
-                    <div class="mb-3 col-12 col-md-6 col-lg-3">
-                        <label for="canton" class="form-label">Cantón</label>
-                        <input type="text" class="form-control" id="canton" name="canton" placeholder="Daule" required>
-                    </div>
-
-                    <div class="mb-3 col-12 col-md-6 col-lg-3">
-                        <label for="provincia" class="form-label">Provincia</label>
-                        <input type="text" class="form-control" id="provincia" name="provincia" placeholder="Guayas" required>
-                    </div>
-
-                    <div class="mb-3 col-12 col-md-6 col-lg-3">
-                        <label for="telefono" class="form-label">Telefóno</label>
-                        <input type="number" class="form-control" name="telefono" id="telefono" placeholder="0999999999" required>
-                    </div>
-
-                    <div class="mb-3 col-12 col-md-6 col-lg-3">
-                        <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
-                        <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
-                    </div>
-
-                    <div class="mb-3 col-12 col-md-6 col-lg-3">
-                        <label for="ocupacion" class="form-label">Ocupación</label>
-                        <input type="text" class="form-control" id="ocupacion" name="ocupacion" placeholder="ej. Chef" required>
-                    </div>
-
-                    <div class="mb-3 col-12 col-md-6 col-lg-2">
-                        <label class="form-label">Sexo</label>
-                        <select class="form-select" name="sexo" aria-label="Default select example" required>
-                            <option selected value="" disabled>Seleccione el género</option>
-                            <option value="Hombre">Hombre</option>
-                            <option value="Mujer">Mujer</option>
-                            <option value="Otro">Otro</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3 col-12 col-md-6 col-lg-2">
-                        <label class="form-label">Estado Civil</label>
-                        <select class="form-select" name="estado_civil" aria-label="Default select example" required>
-                            <option selected value="" disabled>Estado civil</option>
-                            <option value="Soltero/a">Soltero/a</option>
-                            <option value="Casado/a">Casado/a</option>
-                            <option value="Divorciado/a">Divorciado/a</option>
-                            <option value="Viudo/a">Viudo/a</option>
-                            <option value="Otro">Otro</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3 col-12 col-md-6 col-lg-2">
-                        <label for="hijos" class="form-label">Hijos</label>
-                        <input type="number" class="form-control" id="hijos" name="hijos" placeholder="ej. 1" required>
-                    </div>
-
-                    <div class="mb-3 col-12 col-md-6 col-lg-3">
-                        <label for="nombre_contacto" class="form-label">Nombre de Contacto</label>
-                        <input type="text" class="form-control" id="nombre_contacto" name="nombre_contacto" placeholder="ej. Juan">
-                    </div>
-
-                    <div class="mb-3 col-12 col-md-6 col-lg-3">
-                        <label for="carrera" class="form-label">Carrera a la que pertenece</label>
-                        <input type="text" class="form-control" id="carrera" name="carrera" placeholder="ej. Medico">
-                    </div>
-
-                    <div class="mb-3 col-12 col-md-6 col-lg-3">
-                        <label for="fecha" class="form-label">Fecha</label>
-                        <input type="date" class="form-control" id="fecha" name="fecha" required>
-                    </div>
-
-                    <div class="mb-3 col-12 col-md-6 col-lg-3">
-                        <label for="estudios_realizados" class="form-label">Estudios Realizados</label>
-                        <input type="text" class="form-control" id="estudios_realizados" name="estudios_realizados" placeholder="ej. Universidad de Gayaquil" required>
-                    </div>
-
-                    <div class="mb-3 col-12 col-md-6 col-lg-3">
-                        <label class="form-label">Actualmente recibe atencion medica en:</label>
-                        <select class="form-select" name="atencion_medica" value="Ninguno" aria-label="Default select example" required>
-                            <option selected value="" disabled>Seleccione una entidad</option>
-                            <option value="IESS">IESS</option>
-                            <option value="MINISTERIO DE SALUD PUBLICA">MSP</option>
-                            <option value="PARTICULAR">Particular</option>
-                            <option value="OTRO">Otro</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3 col-12 col-md-6 col-lg-3">
-                        <label for="profesion" class="form-label">Profesión</label>
-                        <input type="text" class="form-control" id="profesion" name="profesion" placeholder="ej. Maestro" required>
+        <section class="dashboard-container" id="form">
+            <div class="container-fluid px-4">
+                <!-- Page Header -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="dashboard-header text-center text-md-start">
+                            <h1 class="dashboard-title">
+                                <i class='bx bx-clipboard me-2'></i>
+                                Historia Clínica
+                            </h1>
+                            <p class="dashboard-subtitle mb-3">Registro completo de información médica del paciente</p>
+                            <div class="d-flex justify-content-center justify-content-md-end gap-2 mt-2">
+                                <span class="badge bg-primary-subtle text-primary badge-soft">
+                                    <i class='bx bx-time-five me-1'></i> 
+                                    <?php echo date('d/m/Y'); ?>
+                                </span>
+                                <a href="tablaPacientes.php" class="btn btn-outline-secondary btn-sm rounded-pill">
+                                    <i class='bx bx-arrow-back me-1'></i> Volver
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <hr>
-                <br>
+                <form action="../logic/procesarFormulario.php" method="post">
+                    <!-- Datos de Afiliación Card -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="dashboard-card border-0 shadow-sm">
+                                <div class="card-header bg-transparent border-0 pb-0">
+                                    <h5 class="card-title mb-0">
+                                        <i class='bx bx-user-detail me-2 text-indigo'></i>
+                                        1. Datos de Afiliación
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="mb-3 col-12 col-md-6 col-lg-3">
+                                            <label for="apellidos" class="form-label">Apellidos</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0">
+                                                    <i class='bx bx-user text-muted'></i>
+                                                </span>
+                                                <input type="text" class="form-control border-start-0" id="apellidos" name="apellidos" placeholder="Alvarado Villafuerte" required>
+                                            </div>
+                                        </div>
 
-                <!-- TABLA 4-->
-                <h3 class="fw-bold pb-2">2. Antecedentes Patologicos Personales</h3>
-                <div class="row">
-                    <div class="form-check col-12 col-md-4 col-lg-2 d-flex align-items-center ">
-                        <label class="pointer-cursor form-check-label text-center" for="alergia">
-                            1. Alérgico
-                            <input class="form-check-input" type="checkbox" value="SI" name="calergico" id="alergia">
-                        </label>
+                                        <div class="mb-3 col-12 col-md-6 col-lg-3">
+                                            <label for="nombres" class="form-label">Nombres</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0">
+                                                    <i class='bx bx-user-circle text-muted'></i>
+                                                </span>
+                                                <input type="text" class="form-control border-start-0" id="nombres" name="nombres" placeholder="Carlos Luis" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-6 col-lg-3">
+                                            <label for="cedula" class="form-label">Número de Cédula</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0">
+                                                    <i class='bx bx-id-card text-muted'></i>
+                                                </span>
+                                                <input type="number" class="form-control border-start-0" id="cedula" name="cedula" placeholder="0999999999" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-6 col-lg-3">
+                                            <label for="direccion" class="form-label">Dirección</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0">
+                                                    <i class='bx bx-map text-muted'></i>
+                                                </span>
+                                                <input type="text" class="form-control border-start-0" name="direccion" id="direccion" placeholder="Av. Alvorada" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-6 col-lg-3">
+                                            <label for="barrio" class="form-label">Barrio</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0">
+                                                    <i class='bx bx-buildings text-muted'></i>
+                                                </span>
+                                                <input type="text" class="form-control border-start-0" id="barrio" name="barrio" placeholder="Marianita" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-6 col-lg-3">
+                                            <label for="canton" class="form-label">Cantón</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0">
+                                                    <i class='bx bx-map-pin text-muted'></i>
+                                                </span>
+                                                <input type="text" class="form-control border-start-0" id="canton" name="canton" placeholder="Daule" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-6 col-lg-3">
+                                            <label for="provincia" class="form-label">Provincia</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0">
+                                                    <i class='bx bx-world text-muted'></i>
+                                                </span>
+                                                <input type="text" class="form-control border-start-0" id="provincia" name="provincia" placeholder="Guayas" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-6 col-lg-3">
+                                            <label for="telefono" class="form-label">Teléfono</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0">
+                                                    <i class='bx bx-phone text-muted'></i>
+                                                </span>
+                                                <input type="number" class="form-control border-start-0" name="telefono" id="telefono" placeholder="0999999999" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-6 col-lg-3">
+                                            <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0">
+                                                    <i class='bx bx-calendar text-muted'></i>
+                                                </span>
+                                                <input type="date" class="form-control border-start-0" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-6 col-lg-3">
+                                            <label for="ocupacion" class="form-label">Ocupación</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0">
+                                                    <i class='bx bx-briefcase text-muted'></i>
+                                                </span>
+                                                <input type="text" class="form-control border-start-0" id="ocupacion" name="ocupacion" placeholder="ej. Chef" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-6 col-lg-2">
+                                            <label class="form-label">Sexo</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0">
+                                                    <i class='bx bx-male-female text-muted'></i>
+                                                </span>
+                                                <select class="form-select border-start-0" name="sexo" required>
+                                                    <option selected value="" disabled>Seleccione el género</option>
+                                                    <option value="Hombre">Hombre</option>
+                                                    <option value="Mujer">Mujer</option>
+                                                    <option value="Otro">Otro</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-6 col-lg-2">
+                                            <label class="form-label">Estado Civil</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0">
+                                                    <i class='bx bx-heart text-muted'></i>
+                                                </span>
+                                                <select class="form-select border-start-0" name="estado_civil" required>
+                                                    <option selected value="" disabled>Estado civil</option>
+                                                    <option value="Soltero/a">Soltero/a</option>
+                                                    <option value="Casado/a">Casado/a</option>
+                                                    <option value="Divorciado/a">Divorciado/a</option>
+                                                    <option value="Viudo/a">Viudo/a</option>
+                                                    <option value="Otro">Otro</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-6 col-lg-2">
+                                            <label for="hijos" class="form-label">Hijos</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0">
+                                                    <i class='bx bx-child text-muted'></i>
+                                                </span>
+                                                <input type="number" class="form-control border-start-0" id="hijos" name="hijos" placeholder="ej. 1" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-6 col-lg-3">
+                                            <label for="nombre_contacto" class="form-label">Nombre de Contacto</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0">
+                                                    <i class='bx bx-user-voice text-muted'></i>
+                                                </span>
+                                                <input type="text" class="form-control border-start-0" id="nombre_contacto" name="nombre_contacto" placeholder="ej. Juan">
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-6 col-lg-3">
+                                            <label for="carrera" class="form-label">Carrera a la que pertenece</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0">
+                                                    <i class='bx bx-book text-muted'></i>
+                                                </span>
+                                                <input type="text" class="form-control border-start-0" id="carrera" name="carrera" placeholder="ej. Medico">
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-6 col-lg-3">
+                                            <label for="fecha" class="form-label">Fecha</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0">
+                                                    <i class='bx bx-calendar-check text-muted'></i>
+                                                </span>
+                                                <input type="date" class="form-control border-start-0" id="fecha" name="fecha" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-6 col-lg-3">
+                                            <label for="estudios_realizados" class="form-label">Estudios Realizados</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0">
+                                                    <i class='bx bx-graduation text-muted'></i>
+                                                </span>
+                                                <input type="text" class="form-control border-start-0" id="estudios_realizados" name="estudios_realizados" placeholder="ej. Universidad de Guayaquil" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-6 col-lg-3">
+                                            <label class="form-label">Atención Médica Actual</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0">
+                                                    <i class='bx bx-plus-medical text-muted'></i>
+                                                </span>
+                                                <select class="form-select border-start-0" name="atencion_medica" required>
+                                                    <option selected value="" disabled>Seleccione una entidad</option>
+                                                    <option value="IESS">IESS</option>
+                                                    <option value="MINISTERIO DE SALUD PUBLICA">MSP</option>
+                                                    <option value="PARTICULAR">Particular</option>
+                                                    <option value="OTRO">Otro</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-6 col-lg-3">
+                                            <label for="profesion" class="form-label">Profesión</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0">
+                                                    <i class='bx bx-badge text-muted'></i>
+                                                </span>
+                                                <input type="text" class="form-control border-start-0" id="profesion" name="profesion" placeholder="ej. Maestro" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Antecedentes Patológicos Card -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="dashboard-card border-0 shadow-sm">
+                                <div class="card-header bg-transparent border-0 pb-0">
+                                    <h5 class="card-title mb-0">
+                                        <i class='bx bx-health me-2 text-emerald'></i>
+                                        2. Antecedentes Patológicos Personales
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="form-check col-12 col-md-4 col-lg-2 d-flex align-items-center">
+                                            <label class="pointer-cursor form-check-label d-flex align-items-center" for="alergia">
+                                                <span>1. Alérgico</span>
+                                                <input class="form-check-input ms-2" type="checkbox" value="SI" name="calergico" id="alergia">
+                                            </label>
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-8 col-lg-10">
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0">
+                                                    <i class='bx bx-error-circle text-muted'></i>
+                                                </span>
+                                                <textarea class="form-control border-start-0" name="dalergia" rows="2" placeholder="Descripción de alergias"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-check col-12 col-md-4 col-lg-2 d-flex align-items-center">
+                                            <label class="pointer-cursor form-check-label d-flex align-items-center" for="clinica">
+                                                <span>2. Clínica</span>
+                                                <input class="form-check-input ms-2" type="checkbox" value="SI" name="cclinica" id="clinica">
+                                            </label>
+                                        </div>
 
                     <div class="mb-3 col-12 col-md-8 col-lg-10">
-                        <textarea class="form-control" name="dalergia" rows="2" placeholder="Descripción"></textarea>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class='bx bx-plus-medical text-muted'></i>
+                            </span>
+                            <textarea class="form-control border-start-0" name="dclinica" rows="2" placeholder="Descripción clínica"></textarea>
+                        </div>
                     </div>
 
-                    <div class="form-check col-12 col-md-4 col-lg-2 d-flex align-items-center ">
-                        <label class="pointer-cursor form-check-label" for="clinica">
-                            2. Clínica
-                            <input class="form-check-input" type="checkbox" value="SI" name="cclinica" id="clinica">
-                        </label>
-                    </div>
-
-                    <div class="mb-3 col-12 col-md-8 col-lg-10">
-                        <textarea class="form-control" name="dclinica" rows="2" placeholder="Descripción"></textarea>
-                    </div>
-
-                    <div class="form-check col-12 col-md-4 col-lg-2 d-flex align-items-center ">
-                        <label class="pointer-cursor form-check-label" for="ginecologia">
-                            3. Ginecología
-                            <input class="form-check-input" type="checkbox" name="cginecologia" value="SI" id="ginecologia">
-                        </label>
-                    </div>
+                        <div class="form-check col-12 col-md-4 col-lg-2 d-flex align-items-center">
+                            <label class="pointer-cursor form-check-label d-flex align-items-center" for="ginecologia">
+                                <span>3. Ginecología</span>
+                                <input class="form-check-input ms-2" type="checkbox" value="SI" name="cginecologia" id="ginecologia">
+                            </label>
+                        </div>
 
                     <div class="mb-3 col-12 col-md-8 col-lg-10">
-                        <textarea class="form-control" name="dginecologia" rows="2" placeholder="Descripción"></textarea>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class='bx bx-female text-muted'></i>
+                            </span>
+                            <textarea class="form-control border-start-0" name="dginecologia" rows="2" placeholder="Descripción ginecológica"></textarea>
+                        </div>
                     </div>
 
-                    <div class="form-check col-12 col-md-4 col-lg-2 d-flex align-items-center ">
-                        <label class="pointer-cursor form-check-label" for="traumatologia">
-                            4. Traumatología
-                            <input class="form-check-input" type="checkbox" name="ctraumatologia" value="SI" id="traumatologia">
-                        </label>
-                    </div>
-
-                    <div class="mb-3 col-12 col-md-8 col-lg-10">
-                        <textarea class="form-control" name="dtraumatologia" rows="2" placeholder="Descripción"></textarea>
-                    </div>
-
-                    <div class="form-check col-12 col-md-4 col-lg-2 d-flex align-items-center ">
-                        <label class="pointer-cursor form-check-label" for="quirurgico">
-                            5. Quirúrgico
-                            <input class="form-check-input" name="cquirurgico" type="checkbox" value="SI" id="quirurgico">
-                        </label>
-                    </div>
+                        <div class="form-check col-12 col-md-4 col-lg-2 d-flex align-items-center">
+                            <label class="pointer-cursor form-check-label d-flex align-items-center" for="traumatologia">
+                                <span>4. Traumatología</span>
+                                <input class="form-check-input ms-2" type="checkbox" value="SI" name="ctraumatologia" id="traumatologia">
+                            </label>
+                        </div>
 
                     <div class="mb-3 col-12 col-md-8 col-lg-10">
-                        <textarea class="form-control" name="dquirurgico" rows="2" placeholder="Descripción"></textarea>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class='bx bx-body text-muted'></i>
+                            </span>
+                            <textarea class="form-control border-start-0" name="dtraumatologia" rows="2" placeholder="Descripción traumatológica"></textarea>
+                        </div>
                     </div>
 
-                    <div class="form-check col-12 col-md-4 col-lg-2 d-flex align-items-center ">
-                        <label class="pointer-cursor form-check-label" for="farmacologico">
-                            6. Farmacológico
-                            <input class="form-check-input" type="checkbox" name="cfarmacologico" value="SI" id="farmacologico">
-                        </label>
-                    </div>
-
-                    <div class="mb-3 col-12 col-md-8 col-lg-10">
-                        <textarea class="form-control" name="dfarmacologico" rows="2" placeholder="Descripción"></textarea>
-                    </div>
-
-                    <div class="form-check col-12 col-md-4 col-lg-2 d-flex align-items-center ">
-                        <label class="pointer-cursor form-check-label" for="psiquiatrico">
-                            7. Psiquiátrico
-                            <input class="form-check-input" type="checkbox" name="cpsiquiatrico" value="SI" id="psiquiatrico">
-                        </label>
-                    </div>
+                        <div class="form-check col-12 col-md-4 col-lg-2 d-flex align-items-center">
+                            <label class="pointer-cursor form-check-label d-flex align-items-center" for="quirurgico">
+                                <span>5. Quirúrgico</span>
+                                <input class="form-check-input ms-2" type="checkbox" value="SI" name="cquirurgico" id="quirurgico">
+                            </label>
+                        </div>
 
                     <div class="mb-3 col-12 col-md-8 col-lg-10">
-                        <textarea class="form-control" name="dpsiquiatrico" rows="2" placeholder="Descripción"></textarea>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class='bx bx-scalpel text-muted'></i>
+                            </span>
+                            <textarea class="form-control border-start-0" name="dquirurgico" rows="2" placeholder="Descripción quirúrgica"></textarea>
+                        </div>
                     </div>
 
-                    <div class="form-check col-12 col-md-4 col-lg-2 d-flex align-items-center ">
-                        <label class="pointer-cursor form-check-label" for="otro">
-                            8. Otro
-                            <input class="form-check-input" type="checkbox" name="cotro" value="SI" id="otro">
-                        </label>
-                    </div>
+                        <div class="form-check col-12 col-md-4 col-lg-2 d-flex align-items-center">
+                            <label class="pointer-cursor form-check-label d-flex align-items-center" for="farmacologico">
+                                <span>6. Farmacológico</span>
+                                <input class="form-check-input ms-2" type="checkbox" value="SI" name="cfarmacologico" id="farmacologico">
+                            </label>
+                        </div>
 
                     <div class="mb-3 col-12 col-md-8 col-lg-10">
-                        <textarea class="form-control" name="dotro" rows="2" placeholder="Descripción"></textarea>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class='bx bx-capsule text-muted'></i>
+                            </span>
+                            <textarea class="form-control border-start-0" name="dfarmacologico" rows="2" placeholder="Descripción farmacológica"></textarea>
+                        </div>
+                    </div>
+
+                        <div class="form-check col-12 col-md-4 col-lg-2 d-flex align-items-center">
+                            <label class="pointer-cursor form-check-label d-flex align-items-center" for="psiquiatrico">
+                                <span>7. Psiquiátrico</span>
+                                <input class="form-check-input ms-2" type="checkbox" value="SI" name="cpsiquiatrico" id="psiquiatrico">
+                            </label>
+                        </div>
+
+                    <div class="mb-3 col-12 col-md-8 col-lg-10">
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class='bx bx-brain text-muted'></i>
+                            </span>
+                            <textarea class="form-control border-start-0" name="dpsiquiatrico" rows="2" placeholder="Descripción psiquiátrica"></textarea>
+                        </div>
+                    </div>
+
+                        <div class="form-check col-12 col-md-4 col-lg-2 d-flex align-items-center">
+                            <label class="pointer-cursor form-check-label d-flex align-items-center" for="otro">
+                                <span>8. Otro</span>
+                                <input class="form-check-input ms-2" type="checkbox" value="SI" name="cotro" id="otro">
+                            </label>
+                        </div>
+
+                    <div class="mb-3 col-12 col-md-8 col-lg-10">
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class='bx bx-dots-horizontal-rounded text-muted'></i>
+                            </span>
+                            <textarea class="form-control border-start-0" name="dotro" rows="2" placeholder="Otra descripción"></textarea>
+                        </div>
                     </div>
 
                     <div class="mb-3 col-12 col-md-6 col-lg-4 pt-2">
-                        <label class="form-label"><strong>Antencedentes de Discapacidad</strong></label>
-                        <select id="antecedentesDiscapacidad" class="form-select" name="antecedentesDiscapacidad" aria-label="Default select example" required>
-                            <option selected value="" disabled>Seleccionar estado</option>
-                            <option value="SI">Si</option>
-                            <option value="NO">No</option>
-                        </select>
+                        <label class="form-label"><strong>Antecedentes de Discapacidad</strong></label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class='bx bx-accessibility text-muted'></i>
+                            </span>
+                            <select id="antecedentesDiscapacidad" class="form-select border-start-0" name="antecedentesDiscapacidad" aria-label="Default select example" required>
+                                <option selected value="" disabled>Seleccionar estado</option>
+                                <option value="SI">Si</option>
+                                <option value="NO">No</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
@@ -270,49 +445,84 @@ if (isset($_SESSION['id_usuario'])) {
                     <div class="form-group row mb-3 ">
                         <label for="dc1" class="pointer-cursor col-form-label col-12 col-md-4 col-lg-2">Discapacidad Física:</label>
                         <div class="col-12 col-md-8 col-lg-10">
-                            <textarea class="form-control" id="dc1" name="descripcion_discapacidad_fisica" rows="2" placeholder="Descripción"></textarea>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class='bx bx-accessibility text-muted'></i>
+                                </span>
+                                <textarea class="form-control border-start-0" id="dc1" name="descripcion_discapacidad_fisica" rows="2" placeholder="Descripción"></textarea>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group row mb-3 ">
                         <label for="di1" class="pointer-cursor col-form-label col-12 col-md-4 col-lg-2">Discapacidad Intelectual:</label>
                         <div class="col-12 col-md-8 col-lg-10">
-                            <textarea class="form-control" id="di1" name="descripcion_discapacidad_intelectual" rows="2" placeholder="Descripción"></textarea>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class='bx bx-brain text-muted'></i>
+                                </span>
+                                <textarea class="form-control border-start-0" id="di1" name="descripcion_discapacidad_intelectual" rows="2" placeholder="Descripción"></textarea>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group row mb-3 ">
                         <label for="dm1" class="pointer-cursor col-form-label col-12 col-md-4 col-lg-2">Discapacidad Mental:</label>
                         <div class="col-12 col-md-8 col-lg-10">
-                            <textarea class="form-control" id="dm1" name="descripcion_discapacidad_mental" rows="2" placeholder="Descripción"></textarea>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class='bx bx-user-voice text-muted'></i>
+                                </span>
+                                <textarea class="form-control border-start-0" id="dm1" name="descripcion_discapacidad_mental" rows="2" placeholder="Descripción"></textarea>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group row mb-3 ">
                         <label for="dp1" class="pointer-cursor col-form-label col-12 col-md-4 col-lg-2">Discapacidad Psicosocial:</label>
                         <div class="col-12 col-md-8 col-lg-10">
-                            <textarea class="form-control" id="dp1" name="descripcion_discapacidad_psicosocial" rows="2" placeholder="Descripción"></textarea>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class='bx bx-group text-muted'></i>
+                                </span>
+                                <textarea class="form-control border-start-0" id="dp1" name="descripcion_discapacidad_psicosocial" rows="2" placeholder="Descripción"></textarea>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group row mb-3 ">
                         <label for="ds1" class="pointer-cursor col-form-label col-12 col-md-4 col-lg-2">Discapacidad Sensorial:</label>
                         <div class="col-12 col-md-8 col-lg-10">
-                            <textarea class="form-control" id="ds1" name="descripcion_discapacidad_sensorial" rows="2" placeholder="Descripción"></textarea>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class='bx bx-body text-muted'></i>
+                                </span>
+                                <textarea class="form-control border-start-0" id="ds1" name="descripcion_discapacidad_sensorial" rows="2" placeholder="Descripción"></textarea>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group row mb-3 ">
                         <label for="da1" class="pointer-cursor col-form-label col-12 col-md-4 col-lg-2">Discapacidad Auditiva:</label>
                         <div class="col-12 col-md-8 col-lg-10">
-                            <textarea class="form-control" id="da1" name="descripcion_discapacidad_auditiva" rows="2" placeholder="Descripción"></textarea>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class='bx bx-volume-mute text-muted'></i>
+                                </span>
+                                <textarea class="form-control border-start-0" id="da1" name="descripcion_discapacidad_auditiva" rows="2" placeholder="Descripción"></textarea>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group row mb-3 ">
                         <label for="dv1" class="pointer-cursor col-form-label col-12 col-md-4 col-lg-2">Discapacidad Visual:</label>
                         <div class="col-12 col-md-8 col-lg-10">
-                            <textarea class="form-control" id="dv1" name="descripcion_discapacidad_visual" rows="2" placeholder="Descripción"></textarea>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class='bx bx-low-vision text-muted'></i>
+                                </span>
+                                <textarea class="form-control border-start-0" id="dv1" name="descripcion_discapacidad_visual" rows="2" placeholder="Descripción"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -425,7 +635,12 @@ if (isset($_SESSION['id_usuario'])) {
                 <br>
                 <h3 class="fw-bold">4. Antecedentes patologicos familiares</h3>
                 <div class="mb-3 col-12 pt-2">
-                    <textarea class="form-control" name="antecedentesPatologicosFamiliares" rows="4" placeholder="Descripción"></textarea>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0">
+                            <i class='bx bx-family text-muted'></i>
+                        </span>
+                        <textarea class="form-control border-start-0" name="antecedentesPatologicosFamiliares" rows="4" placeholder="Descripción"></textarea>
+                    </div>
                 </div>
 
                 <!--TABLA 7-->
@@ -442,7 +657,12 @@ if (isset($_SESSION['id_usuario'])) {
                     </div>
 
                     <div class="mb-3 col-12 col-md-8 col-lg-10">
-                        <textarea class="form-control" name="dviaLibre" rows="2" placeholder="Descripción"></textarea>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class='bx bx-check-circle text-muted'></i>
+                            </span>
+                            <textarea class="form-control border-start-0" name="dviaLibre" rows="2" placeholder="Descripción"></textarea>
+                        </div>
                     </div>
 
                     <div class="form-check col-12 col-md-4 col-lg-2 d-flex align-items-center ">
@@ -453,7 +673,12 @@ if (isset($_SESSION['id_usuario'])) {
                     </div>
 
                     <div class="mb-3 col-12 col-md-8 col-lg-10">
-                        <textarea class="form-control" name="dviaObstruida" rows="2" placeholder="Descripción"></textarea>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class='bx bx-x-circle text-muted'></i>
+                            </span>
+                            <textarea class="form-control border-start-0" name="dviaObstruida" rows="2" placeholder="Descripción"></textarea>
+                        </div>
                     </div>
 
                     <div class="form-check col-12 col-md-4 col-lg-2 d-flex align-items-center ">
@@ -464,7 +689,12 @@ if (isset($_SESSION['id_usuario'])) {
                     </div>
 
                     <div class="mb-3 col-12 col-md-8 col-lg-10">
-                        <textarea class="form-control" name="dcondicionEstable" rows="2" placeholder="Descripción"></textarea>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class='bx bx-heart text-muted'></i>
+                            </span>
+                            <textarea class="form-control border-start-0" name="dcondicionEstable" rows="2" placeholder="Descripción"></textarea>
+                        </div>
                     </div>
 
                     <div class="form-check col-12 col-md-4 col-lg-2 d-flex align-items-center ">
@@ -475,7 +705,12 @@ if (isset($_SESSION['id_usuario'])) {
                     </div>
 
                     <div class="mb-3 col-12 col-md-8 col-lg-10">
-                        <textarea class="form-control" name="dcondicionInestable" rows="2" placeholder="Descripción"></textarea>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class='bx bx-heart-circle text-muted'></i>
+                            </span>
+                            <textarea class="form-control border-start-0" name="dcondicionInestable" rows="2" placeholder="Descripción"></textarea>
+                        </div>
                     </div>
                 </div>
 
@@ -527,7 +762,12 @@ if (isset($_SESSION['id_usuario'])) {
                 <h3 class="fw-bold col-12 pb-2">7. Examen físico general</h3>
 
                 <div class="mb-3 col-12 pt-2">
-                    <textarea class="form-control" name="examenFisicoGeneral" rows="4" placeholder="Descripción"></textarea>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0">
+                            <i class='bx bx-body text-muted'></i>
+                        </span>
+                        <textarea class="form-control border-start-0" name="examenFisicoGeneral" rows="4" placeholder="Descripción"></textarea>
+                    </div>
                 </div>
 
                 <!--TABLA 10-->
@@ -544,7 +784,12 @@ if (isset($_SESSION['id_usuario'])) {
                     </div>
 
                     <div class="mb-3 col-12 col-md-8 col-lg-10">
-                        <textarea class="form-control" name="dcabeza" rows="2" placeholder="Descripción"></textarea>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class='bx bx-face text-muted'></i>
+                            </span>
+                            <textarea class="form-control border-start-0" name="dcabeza" rows="2" placeholder="Descripción"></textarea>
+                        </div>
                     </div>
 
 
@@ -556,7 +801,12 @@ if (isset($_SESSION['id_usuario'])) {
                     </div>
 
                     <div class="mb-3 col-12 col-md-8 col-lg-10">
-                        <textarea class="form-control" name="dcuello" rows="2" placeholder="Descripción"></textarea>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class='bx bx-user-circle text-muted'></i>
+                            </span>
+                            <textarea class="form-control border-start-0" name="dcuello" rows="2" placeholder="Descripción"></textarea>
+                        </div>
                     </div>
 
 
@@ -568,7 +818,12 @@ if (isset($_SESSION['id_usuario'])) {
                     </div>
 
                     <div class="mb-3 col-12 col-md-8 col-lg-10">
-                        <textarea class="form-control" name="dtorax" rows="2" placeholder="Descripción"></textarea>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class='bx bx-body text-muted'></i>
+                            </span>
+                            <textarea class="form-control border-start-0" name="dtorax" rows="2" placeholder="Descripción"></textarea>
+                        </div>
                     </div>
 
 
@@ -580,7 +835,12 @@ if (isset($_SESSION['id_usuario'])) {
                     </div>
 
                     <div class="mb-3 col-12 col-md-8 col-lg-10">
-                        <textarea class="form-control" name="dabdomen" rows="2" placeholder="Descripción"></textarea>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class='bx bx-body text-muted'></i>
+                            </span>
+                            <textarea class="form-control border-start-0" name="dabdomen" rows="2" placeholder="Descripción"></textarea>
+                        </div>
                     </div>
 
 
@@ -592,7 +852,12 @@ if (isset($_SESSION['id_usuario'])) {
                     </div>
 
                     <div class="mb-3 col-12 col-md-8 col-lg-10">
-                        <textarea class="form-control" name="dcolumna" rows="2" placeholder="Descripción"></textarea>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class='bx bx-body text-muted'></i>
+                            </span>
+                            <textarea class="form-control border-start-0" name="dcolumna" rows="2" placeholder="Descripción"></textarea>
+                        </div>
                     </div>
 
 
@@ -604,7 +869,12 @@ if (isset($_SESSION['id_usuario'])) {
                     </div>
 
                     <div class="mb-3 col-12 col-md-8 col-lg-10">
-                        <textarea class="form-control" name="dpelvis" rows="2" placeholder="Descripción"></textarea>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class='bx bx-body text-muted'></i>
+                            </span>
+                            <textarea class="form-control border-start-0" name="dpelvis" rows="2" placeholder="Descripción"></textarea>
+                        </div>
                     </div>
 
 
@@ -616,7 +886,12 @@ if (isset($_SESSION['id_usuario'])) {
                     </div>
 
                     <div class="mb-3 col-12 col-md-8 col-lg-10">
-                        <textarea class="form-control" name="dextremidades" rows="2" placeholder="Descripción"></textarea>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class='bx bx-body text-muted'></i>
+                            </span>
+                            <textarea class="form-control border-start-0" name="dextremidades" rows="2" placeholder="Descripción"></textarea>
+                        </div>
                     </div>
                 </div>
 
@@ -630,7 +905,12 @@ if (isset($_SESSION['id_usuario'])) {
                         Presuntivo:
                     </label>
                     <div class="mb-3 col-12">
-                        <textarea class="form-control" id="presuntivo" name="presuntivo" rows="3" placeholder="Descripción" required></textarea>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class='bx bx-search-alt text-muted'></i>
+                            </span>
+                            <textarea class="form-control border-start-0" id="presuntivo" name="presuntivo" rows="3" placeholder="Descripción" required></textarea>
+                        </div>
                     </div>
                 </div>
 
@@ -639,7 +919,12 @@ if (isset($_SESSION['id_usuario'])) {
                         Definitivo:
                     </label>
                     <div class="mb-3 col-12">
-                        <textarea class="form-control" id="definitivo" name="definitivo" rows="3" placeholder="Descripción" required></textarea>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class='bx bx-check-double text-muted'></i>
+                            </span>
+                            <textarea class="form-control border-start-0" id="definitivo" name="definitivo" rows="3" placeholder="Descripción" required></textarea>
+                        </div>
                     </div>
                 </div>
 
@@ -654,10 +939,30 @@ if (isset($_SESSION['id_usuario'])) {
                             Indicaciones
                         </label>
                         <div class="mb-3" style="width: 100%;">
-                            <textarea class="form-control" id="indicacion_1" name="indicacion_1" rows="5" placeholder="Descripción" required></textarea>
-                            <textarea class="form-control" id="indicacion_2" name="indicacion_2" rows="5" placeholder="Descripción"></textarea>
-                            <textarea class="form-control" id="indicacion_3" name="indicacion_3" rows="5" placeholder="Descripción"></textarea>
-                            <textarea class="form-control" id="indicacion_4" name="indicacion_4" rows="5" placeholder="Descripción"></textarea>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class='bx bx-list-check text-muted'></i>
+                                </span>
+                                <textarea class="form-control border-start-0" id="indicacion_1" name="indicacion_1" rows="5" placeholder="Descripción" required></textarea>
+                            </div>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class='bx bx-list-check text-muted'></i>
+                                </span>
+                                <textarea class="form-control border-start-0" id="indicacion_2" name="indicacion_2" rows="5" placeholder="Descripción"></textarea>
+                            </div>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class='bx bx-list-check text-muted'></i>
+                                </span>
+                                <textarea class="form-control border-start-0" id="indicacion_3" name="indicacion_3" rows="5" placeholder="Descripción"></textarea>
+                            </div>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class='bx bx-list-check text-muted'></i>
+                                </span>
+                                <textarea class="form-control border-start-0" id="indicacion_4" name="indicacion_4" rows="5" placeholder="Descripción"></textarea>
+                            </div>
                         </div>
                     </div>
 
@@ -666,10 +971,30 @@ if (isset($_SESSION['id_usuario'])) {
                             Medicamentos
                         </label>
                         <div class="mb-3" style="width: 100%;">
-                            <textarea class="form-control" id="medicamento_1" name="medicamento_1" rows="5" placeholder="Descripción" required></textarea>
-                            <textarea class="form-control" id="medicamento_2" name="medicamento_2" rows="5" placeholder="Descripción"></textarea>
-                            <textarea class="form-control" id="medicamento_3" name="medicamento_3" rows="5" placeholder="Descripción"></textarea>
-                            <textarea class="form-control" id="medicamento_4" name="medicamento_4" rows="5" placeholder="Descripción"></textarea>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class='bx bx-capsule text-muted'></i>
+                                </span>
+                                <textarea class="form-control border-start-0" id="medicamento_1" name="medicamento_1" rows="5" placeholder="Descripción" required></textarea>
+                            </div>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class='bx bx-capsule text-muted'></i>
+                                </span>
+                                <textarea class="form-control border-start-0" id="medicamento_2" name="medicamento_2" rows="5" placeholder="Descripción"></textarea>
+                            </div>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class='bx bx-capsule text-muted'></i>
+                                </span>
+                                <textarea class="form-control border-start-0" id="medicamento_3" name="medicamento_3" rows="5" placeholder="Descripción"></textarea>
+                            </div>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class='bx bx-capsule text-muted'></i>
+                                </span>
+                                <textarea class="form-control border-start-0" id="medicamento_4" name="medicamento_4" rows="5" placeholder="Descripción"></textarea>
+                            </div>
                         </div>
                     </div>
 
@@ -678,10 +1003,30 @@ if (isset($_SESSION['id_usuario'])) {
                             Posología
                         </label>
                         <div class="mb-3" style="width: 100%;">
-                            <textarea class="form-control" id="posologia_1" name="posologia_1" rows="5" placeholder="Descripción" required></textarea>
-                            <textarea class="form-control" id="posologia_2" name="posologia_2" rows="5" placeholder="Descripción"></textarea>
-                            <textarea class="form-control" id="posologia_3" name="posologia_3" rows="5" placeholder="Descripción"></textarea>
-                            <textarea class="form-control" id="posologia_4" name="posologia_4" rows="5" placeholder="Descripción"></textarea>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class='bx bx-time text-muted'></i>
+                                </span>
+                                <textarea class="form-control border-start-0" id="posologia_1" name="posologia_1" rows="5" placeholder="Descripción" required></textarea>
+                            </div>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class='bx bx-time text-muted'></i>
+                                </span>
+                                <textarea class="form-control border-start-0" id="posologia_2" name="posologia_2" rows="5" placeholder="Descripción"></textarea>
+                            </div>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class='bx bx-time text-muted'></i>
+                                </span>
+                                <textarea class="form-control border-start-0" id="posologia_3" name="posologia_3" rows="5" placeholder="Descripción"></textarea>
+                            </div>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class='bx bx-time text-muted'></i>
+                                </span>
+                                <textarea class="form-control border-start-0" id="posologia_4" name="posologia_4" rows="5" placeholder="Descripción"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -689,18 +1034,36 @@ if (isset($_SESSION['id_usuario'])) {
 
                 <input type="hidden" name="id_usuario" value="<?php echo $id_usuario; ?>">
 
-                <div class="enviar">
-                    <button class="btn btn-primary">Enviar datos</button>
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
+                            <a href="tablaPacientes.php" class="btn btn-outline-secondary rounded-pill px-4 py-2 shadow-sm" style="min-width: 150px;">
+                                <i class='bx bx-arrow-back me-2'></i>
+                                <span>Cancelar</span>
+                            </a>
+                            <button type="submit" class="btn btn-primary-custom rounded-pill px-4 py-2 shadow-sm" style="min-width: 200px;">
+                                <i class='bx bx-check-circle me-2'></i>
+                                Guardar Historia Clínica
+                            </button>
+                        </div>
+                        <div class="text-center mt-3">
+                            <small class="text-muted">
+                                <i class='bx bx-info-circle me-1'></i>
+                                Asegúrese de completar todos los campos requeridos antes de guardar
+                            </small>
+                        </div>
+                    </div>
                 </div>
-            </form>
+                </div>
 
-        </section>
-        <!--SECTION FORMULARIO/-->
+                </form>
 
-    </main>
+            </section>
+            <!--SECTION FORMULARIO/-->
 
-    <?php include '../components/footer.php'; ?>
+        </main>
 
+        <?php include '../components/footer.php'; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
